@@ -5,7 +5,6 @@ import com.example.credit.beans.Customer;
 import com.example.credit.beans.Product;
 import com.example.credit.entity.Credit;
 import com.example.credit.service.CreditService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,25 +22,26 @@ import java.util.UUID;
 @RestController
 public class CreditController {
 
-    private static String GET_PRODUCT_URL = "http://192.168.99.100:8080/products?creditNumber={creditNumber}";
-    private static String POST_PRODUCT_URL = "http://192.168.99.100:8080/products";
-    private static String GET_CUSTOMER_URL = "http://192.168.99.100:8081/customers?creditNumber={creditNumber}";
-    private static String POST_CUSTOMER_URL = "http://192.168.99.100:8081/customers";
+    private static String GET_PRODUCT_URL = "http://product-service:8080/products?creditNumber={creditNumber}";
+    private static String POST_PRODUCT_URL = "http://product-service:8080/products";
+    private static String GET_CUSTOMER_URL = "http://customer-service:8081/customers?creditNumber={creditNumber}";
+    private static String POST_CUSTOMER_URL = "http://customer-service:8081/customers";
 
     @Autowired
     private CreditService creditService;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("/credits")
-    public List<CreditForm> getCredits(){
+    public List<CreditForm> getCredits() {
         final List<CreditForm> creditForms = new ArrayList<>();
         final List<Credit> credits = creditService.getCredits();
         credits.forEach(credit -> {
-            final RestTemplate productRestTemplate = new RestTemplate();
-            final Product product =  productRestTemplate.getForObject(GET_PRODUCT_URL,
-                    Product.class,credit.getCreditNumber());
+            final Product product = restTemplate.getForObject(GET_PRODUCT_URL,
+                    Product.class, credit.getCreditNumber());
 
-            final RestTemplate customerRestTemplate = new RestTemplate();
-            final Customer customer = customerRestTemplate.getForObject(GET_CUSTOMER_URL,
+            final Customer customer = restTemplate.getForObject(GET_CUSTOMER_URL,
                     Customer.class, credit.getCreditNumber());
 
             final CreditForm creditForm = createCreditForm(credit, product, customer);
@@ -51,25 +51,23 @@ public class CreditController {
     }
 
     @PostMapping(value = "/credits", consumes = "application/json")
-    public UUID saveCredit(@RequestBody final CreditForm creditForm) throws JsonProcessingException {
+    public UUID saveCredit(@RequestBody final CreditForm creditForm) {
 
         final Credit credit = createCredit(creditForm);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        final HttpEntity<Product> productRequest = new HttpEntity<>(createProduct(creditForm, credit),headers);
-        final RestTemplate productRestTemplate = new RestTemplate();
-        productRestTemplate.postForObject(POST_PRODUCT_URL, productRequest, Product.class);
+        final HttpEntity<Product> productRequest = new HttpEntity<>(createProduct(creditForm, credit), headers);
+        restTemplate.postForObject(POST_PRODUCT_URL, productRequest, Product.class);
 
-        final HttpEntity<Customer> customerRequest = new HttpEntity<>(createCustomer(creditForm, credit),headers);
-        final RestTemplate customerRestTemplate = new RestTemplate();
-        customerRestTemplate.postForObject(POST_CUSTOMER_URL, customerRequest, Customer.class);
+        final HttpEntity<Customer> customerRequest = new HttpEntity<>(createCustomer(creditForm, credit), headers);
+        restTemplate.postForObject(POST_CUSTOMER_URL, customerRequest, Customer.class);
 
         return creditService.saveCredit(credit);
     }
 
-    private Customer createCustomer(@RequestBody CreditForm creditForm, Credit credit) {
+    private Customer createCustomer(final CreditForm creditForm, final Credit credit) {
         final Customer customer = new Customer();
         customer.setCreditNumber(credit.getCreditNumber());
         customer.setFirstName(creditForm.getFirstName());
@@ -78,7 +76,7 @@ public class CreditController {
         return customer;
     }
 
-    private Product createProduct(@RequestBody CreditForm creditForm, Credit credit) {
+    private Product createProduct(final CreditForm creditForm, final Credit credit) {
         final Product product = new Product();
         product.setCreditNumber(credit.getCreditNumber());
         product.setName(creditForm.getProductName());
@@ -86,7 +84,7 @@ public class CreditController {
         return product;
     }
 
-    private Credit createCredit(@RequestBody CreditForm creditForm) {
+    private Credit createCredit(final CreditForm creditForm) {
         final Credit credit = new Credit();
         credit.setCreditNumber(UUID.randomUUID());
         credit.setName(creditForm.getCreditName());
