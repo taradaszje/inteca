@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+eureka:
+  instance:
+    prefer-ip-address: true
+
+  ## PostgreSQL
+spring:
+  application:
+    name: customer-services
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/inteca_work
+    username: taradaszje
+    password: 1100
+  jpa:
+    hibernate.ddl-auto: validate
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true

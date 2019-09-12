@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,10 +23,10 @@ import java.util.UUID;
 @RestController
 public class CreditController {
 
-    private static String GET_PRODUCT_URL = "http://product-service:8080/products?creditNumber={creditNumber}";
-    private static String POST_PRODUCT_URL = "http://product-service:8080/products";
-    private static String GET_CUSTOMER_URL = "http://customer-service:8081/customers?creditNumber={creditNumber}";
-    private static String POST_CUSTOMER_URL = "http://customer-service:8081/customers";
+    private static String GET_PRODUCT_URL = "http://product-service/products?creditNumber={creditNumber}";
+    private static String POST_PRODUCT_URL = "http://product-service/products";
+    private static String GET_CUSTOMER_URL = "http://customer-service/customers?creditNumber={creditNumber}";
+    private static String POST_CUSTOMER_URL = "http://customer-service/customers";
 
     @Autowired
     private CreditService creditService;
@@ -33,7 +34,8 @@ public class CreditController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/credits")
+    @GetMapping(value = "/credits", produces = "application/json")
+    @ResponseBody
     public List<CreditForm> getCredits() {
         final List<CreditForm> creditForms = new ArrayList<>();
         final List<Credit> credits = creditService.getCredits();
