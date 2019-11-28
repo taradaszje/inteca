@@ -27,7 +27,6 @@ public class ProductServiceTest {
     public void shouldCreateProduct(){
         //given
         final Product product = new Product();
-        product.setCreditNumber(UUID.randomUUID());
         product.setName("example");
         product.setValue(1000);
         given(productRepository.save(product)).will(InvocationOnMock::getMock);

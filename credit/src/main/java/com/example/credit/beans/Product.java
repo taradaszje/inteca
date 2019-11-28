@@ -13,7 +13,7 @@ public class Product {
 
     private Long id;
 
-    private UUID creditNumber;
+    private UUID creditID;
 
     private String name;
 

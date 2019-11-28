@@ -1,14 +1,14 @@
 server:
-  port: 8761
+  port: 8600
 
 eureka:
-  instance:
-    prefer-ip-address: true
-
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
   ## PostgreSQL
 spring:
   application:
-    name: credit-services
+    name: credit-service
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/inteca_work

@@ -4,6 +4,7 @@ import com.example.customer.entity.Customer;
 import com.example.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,12 +18,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/customers")
-    public Customer getCustomer(@RequestParam final UUID creditNumber){
-        return this.customerService.getCustomer(creditNumber);
+    @GetMapping("/getCustomer/{creditID}")
+    public Customer getCustomer(@PathVariable final UUID creditID){
+        return this.customerService.getCustomer(creditID);
     }
 
-    @PostMapping("/customers")
+    @PostMapping("/createCustomer")
     public void saveCustomer(@RequestBody final Customer customer){
         this.customerService.saveCustomer(customer);
     }

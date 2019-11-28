@@ -27,8 +27,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "credit_number")
-    private UUID creditNumber;
+    @Column(name = "credit_id")
+    private UUID creditID;
 
     @Column(unique = true)
     private String name;
