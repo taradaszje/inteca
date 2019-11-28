@@ -79,7 +79,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>credit-app-docker-maven</finalName>
+		<finalName>credit-service</finalName>
 	</build>
 
 </project>

@@ -87,7 +87,7 @@
                 </configuration>
             </plugin>
         </plugins>
-		<finalName>product-app-docker-maven</finalName>
+		<finalName>product-service</finalName>
 	</build>
 
 </project>

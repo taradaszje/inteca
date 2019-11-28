@@ -1,8 +1,11 @@
 version: "3.7"
+networks:
+  default:
+    name: microservices_nw
 services:
   postgresService:
     image: postgres:latest
-    network_mode: bridge
+#    network_mode: bridge
     container_name: postgres
     expose:
       - 5432
@@ -15,50 +18,54 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=inteca_work
     restart: unless-stopped
-  # APP*****************************************
-  credit-microservice:
-    image: credit-microservice:latest
-    network_mode: bridge
-    container_name: credit-microservice
+  # EUREKA SERVER#####
+  eureka-server:
+    image: eureka-server:latest
+    container_name: eureka-server
     expose:
       - 8761
     ports:
-     - 8761:8761
+      - 8761:8761
+    restart: unless-stopped
+  # APP*****************************************
+  credit-microservice:
+    image: credit-microservice:latest
+#    network_mode: bridge
+    container_name: credit-microservice
+    expose:
+      - 8600
+    ports:
+     - 8600:8600
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=admin
     restart: unless-stopped
-    links:
-      - postgresService
-#  product-micorservice:
-#    image: product-microservice:latest
+
+  product-micorservice:
+    image: product-microservice:latest
 #    network_mode: bridge
-#    container_name: product-micorservice
-#    expose:
-#      - 8080
-#    ports:
-#      - 8080:8080
-#    environment:
-#        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
-#        - SPRING_DATASOURCE_USERNAME=postgres
-#        - SPRING_DATASOURCE_PASSWORD=admin
-#    restart: unless-stopped
-#    links:
-#      - postgresService
-#
-#  customer-microservice:
-#    image: customer-microservice:latest
-#    network_mode: bridge
-#    container_name: customer-microservice
-#    expose:
-#      - 8081
-#    ports:
-#      - 8081:8081
-#    environment:
-#        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
-#        - SPRING_DATASOURCE_USERNAME=postgres
-#        - SPRING_DATASOURCE_PASSWORD=admin
-#    restart: unless-stopped
-#    links:
-#      - postgresService
+    container_name: product-micorservice
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
+        - SPRING_DATASOURCE_USERNAME=postgres
+        - SPRING_DATASOURCE_PASSWORD=admin
+    restart: unless-stopped
+
+  customer-microservice:
+    image: customer-microservice:latest
+    network_mode: bridge
+    container_name: customer-microservice
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
+        - SPRING_DATASOURCE_USERNAME=postgres
+        - SPRING_DATASOURCE_PASSWORD=admin
+    restart: unless-stopped
