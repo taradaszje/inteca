@@ -46,6 +46,13 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -57,7 +64,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<version>1.4.7.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -79,7 +87,7 @@
                 </configuration>
             </plugin>
         </plugins>
-		<finalName>product-app-docker-maven</finalName>
+		<finalName>product-service</finalName>
 	</build>
 
 </project>

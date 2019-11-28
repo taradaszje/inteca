@@ -13,6 +13,6 @@ public class Customer {
     private Long id;
     private String firstName;
     private String surname;
-    private UUID creditNumber;
+    private UUID creditID;
     private Long identityNumber;
 }

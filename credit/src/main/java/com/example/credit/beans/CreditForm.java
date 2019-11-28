@@ -11,10 +11,10 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class CreditForm {
+    private String creditName;
     private String firstName;
     private String lastName;
     private Long identityNumber;
     private String productName;
     private Integer productValue;
-    private String creditName;
 }

@@ -16,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public Customer getCustomer(final UUID creditNumber) {
-        return customerRepository.findByCreditNumber(creditNumber)
+        return customerRepository.findByCreditID(creditNumber)
                 .orElseThrow(()->new EntityNotFoundException(throwMessage(creditNumber)));
     }
 

@@ -25,7 +25,7 @@ public class CreditServiceImpl implements CreditService {
     @Override
     public UUID saveCredit(final Credit credit) {
         creditRepository.save(credit);
-        return credit.getCreditNumber();
+        return credit.getCreditID();
     }
 
 }

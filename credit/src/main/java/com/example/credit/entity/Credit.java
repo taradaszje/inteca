@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
-//todo unique do dodania
 
 @Entity
 @Table(name = "credits")
@@ -27,7 +26,8 @@ public class Credit {
     @Column
     private String name;
 
-    @Column(name = "credit_number")
-    private UUID creditNumber;
+    @Column(name = "credit_id")
+    private UUID creditID;
+
 }
 
