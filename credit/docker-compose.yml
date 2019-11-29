@@ -2,6 +2,7 @@ version: "3.7"
 networks:
   default:
     name: microservices_nw
+    driver: bridge
 services:
   postgresService:
     image: postgres:latest
@@ -58,7 +59,7 @@ services:
 
   customer-microservice:
     image: customer-microservice:latest
-    network_mode: bridge
+#    network_mode: bridge
     container_name: customer-microservice
     expose:
       - 8081
