@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:8-jdk-alpine
 ADD target/credit-service.jar credit-service.jar
 EXPOSE 8761
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=container","-DEUREKA_SERVER=http://eureka-server:8761/eureka", "-jar", "credit-service.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-jar", "credit-service.jar"]

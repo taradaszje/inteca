@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
 
 
-@FeignClient(name = "customer-service")
-@RibbonClient(name = "customer-service")
+@FeignClient(name="customer-service", url = "192.168.99.100:8081")
 public interface CustomerServiceProxy {
 
     @GetMapping("/getCustomer/{creditID}")
