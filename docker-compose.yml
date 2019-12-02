@@ -8,7 +8,7 @@ services:
     image: postgres:latest
     container_name: postgres
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - .:/docker-entrypoint-initdb.d/
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
@@ -16,7 +16,6 @@ services:
     restart: unless-stopped
   # EUREKA SERVER#####
   eureka-server:
-    build: ./netflix-eureka-naming-server/.
     image: eureka-server:latest
     container_name: eureka-server
     networks:
@@ -26,7 +25,6 @@ services:
     restart: unless-stopped
   # APP*****************************************
   credit-service:
-    build: ./credit/.
     image: credit-service:latest
     container_name: credit-service
     networks:
@@ -41,7 +39,6 @@ services:
 
   product-service:
     image: product-service:latest
-    build: ./product/.
     networks:
          - services-network
     container_name: product-service
@@ -55,7 +52,6 @@ services:
 
   customer-service:
     image: customer-service:latest
-    build: ./customer/.
     networks:
       - services-network
     container_name: customer-service
