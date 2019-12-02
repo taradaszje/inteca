@@ -32,6 +32,6 @@ public class Customer {
     @Column(name = "identity_number", unique = true)
     private Long identityNumber;
 
-    @Column(name = "credit_number")
-    private UUID creditNumber;
+    @Column(name = "credit_id")
+    private UUID creditID;
 }

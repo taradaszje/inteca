@@ -1,4 +1,4 @@
-package com.example.product.service;
+package com.example.product.services;
 
 import com.example.product.entity.Product;
 import com.example.product.repository.ProductRepository;
@@ -15,8 +15,8 @@ public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
 
     @Override
-    public Product getProducts(final UUID creditNumber) {
-        return productRepository.findByCreditNumber(creditNumber)
+    public Product getProduct(final UUID creditNumber) {
+        return productRepository.findByCreditID(creditNumber)
                 .orElseThrow(() -> new EntityNotFoundException(throwMessage(creditNumber)));
     }
 

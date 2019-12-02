@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
-ADD target/credit-app-docker-maven.jar credit-app-docker-maven.jar
+FROM openjdk:8-jdk-alpine
+ADD target/credit-service.jar credit-service.jar
 EXPOSE 8761
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=container", "-jar", "credit-app-docker-maven.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-jar", "credit-service.jar"]

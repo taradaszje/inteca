@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    Optional<Product> findByCreditNumber(final UUID creditId);
+    Optional<Product> findByCreditID(final UUID creditId);
 }

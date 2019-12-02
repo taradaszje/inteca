@@ -1,0 +1,64 @@
+version: "3.7"
+networks:
+  services-network:
+services:
+  postgresService:
+    networks:
+      - services-network
+    image: postgres:latest
+    container_name: postgres
+    volumes:
+      - .:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=inteca_work
+    restart: unless-stopped
+  # EUREKA SERVER#####
+  eureka-server:
+    image: eureka-server:latest
+    container_name: eureka-server
+    networks:
+      - services-network
+    ports:
+      - 8761:8761
+    restart: unless-stopped
+  # APP*****************************************
+  credit-service:
+    image: credit-service:latest
+    container_name: credit-service
+    networks:
+      - services-network
+    ports:
+     - 8600:8600
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+    restart: unless-stopped
+
+  product-service:
+    image: product-service:latest
+    networks:
+         - services-network
+    container_name: product-service
+    ports:
+      - 8080:8080
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
+        - SPRING_DATASOURCE_USERNAME=postgres
+        - SPRING_DATASOURCE_PASSWORD=admin
+    restart: unless-stopped
+
+  customer-service:
+    image: customer-service:latest
+    networks:
+      - services-network
+    container_name: customer-service
+    ports:
+      - 8081:8081
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
+        - SPRING_DATASOURCE_USERNAME=postgres
+        - SPRING_DATASOURCE_PASSWORD=admin
+    restart: unless-stopped

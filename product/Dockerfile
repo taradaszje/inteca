@@ -1,4 +1,4 @@
-FROM openjdk:8
-ADD target/product-app-docker-maven.jar product-app-docker-maven.jar
+FROM openjdk:8-jdk-alpine
+ADD target/product-service.jar product-service.jar
 EXPOSE 8080
-CMD java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=container -jar product-app-docker-maven.jar
+CMD java -Djava.security.egd=file:/dev/./urandom  -jar product-service.jar

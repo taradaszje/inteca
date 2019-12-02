@@ -8,7 +8,7 @@
 		<version>2.1.7.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-    <dependencyManagement>
+	<dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -19,7 +19,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-	<groupId>com.example</groupId>
+	<groupId>com.taradaszje</groupId>
 	<artifactId>credit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>credit</name>
@@ -36,7 +36,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-feign</artifactId>
+			<version>1.4.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-ribbon</artifactId>
+			<version>1.4.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dkanejs.maven.plugins</groupId>
+			<artifactId>docker-compose-maven-plugin</artifactId>
+			<version>2.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -69,8 +84,26 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<executions>
+					<execution>
+						<id>build</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>credit-service</repository>
+					<tag>latest</tag>
+				</configuration>
+			</plugin>
 		</plugins>
-		<finalName>credit-app-docker-maven</finalName>
+		<finalName>credit-service</finalName>
 	</build>
 
 </project>

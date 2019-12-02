@@ -1,0 +1,23 @@
+server:
+  port: 8600
+
+
+  ## PostgreSQL
+spring:
+  application:
+    name: credit-service
+  profiles:
+    active: container
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/inteca_work
+    username: taradaszje
+    password: 1100
+  jpa:
+    hibernate.ddl-auto: validate
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.99.100:8761/eureka
