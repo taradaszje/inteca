@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
   # EUREKA SERVER#####
   eureka-server:
-    build: ../netflix-eureka-naming-server/.
+    build: ./netflix-eureka-naming-server/.
     image: eureka-server:latest
     container_name: eureka-server
     networks:
@@ -26,7 +26,7 @@ services:
     restart: unless-stopped
   # APP*****************************************
   credit-service:
-    build: .
+    build: ./credit/.
     image: credit-service:latest
     container_name: credit-service
     networks:
@@ -41,7 +41,7 @@ services:
 
   product-service:
     image: product-service:latest
-    build: ../product/.
+    build: ./product/.
     networks:
          - services-network
     container_name: product-service
@@ -55,7 +55,7 @@ services:
 
   customer-service:
     image: customer-service:latest
-    build: ../customer/.
+    build: ./customer/.
     networks:
       - services-network
     container_name: customer-service

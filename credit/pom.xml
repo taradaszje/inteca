@@ -85,22 +85,22 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>com.dkanejs.maven.plugins</groupId>
-				<artifactId>docker-compose-maven-plugin</artifactId>
-				<version>2.5.1</version>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
 				<executions>
 					<execution>
 						<id>build</id>
 						<phase>package</phase>
 						<goals>
-							<goal>up</goal>
+							<goal>build</goal>
 						</goals>
-						<configuration>
-							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
-							<detachedMode>true</detachedMode>
-						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<repository>credit-service</repository>
+					<tag>latest</tag>
+				</configuration>
 			</plugin>
 		</plugins>
 		<finalName>credit-service</finalName>
