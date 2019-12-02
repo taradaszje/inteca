@@ -1,12 +1,11 @@
 # Inteca prework
 ## Setup
-### 1
+### First step
 Browse to microservices directories and type : ```mvn package ```
 to build jar files.
-To run this microservices 
-To build docker images let's execute mvn package in credit application directory.  
-Next please run docker-compose file to 
-
+### Last step
+Execute ```mvn install ``` in credit app.  
+This step will build all necessary docker images and run it. 
 ## Example usage
 ```  
   Example calls:
