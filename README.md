@@ -12,12 +12,9 @@ This step will build all necessary docker images and run it.
 ### Browser
 You can test app via html using this URLs:
 
-[getCredits](http://192.168.99.100:8600/getCredits)  
-[createCredit](http://192.168.99.100:8600/createCredit)  
-[getCustomer](http://192.168.99.100:8600/getCustomer/9d783bf4-c64e-11e9-88b6-0c54a52d7951)  
-[createCustomer](http://192.168.99.100:8600/createCustomer)  
-[getProduct](http://192.168.99.100:8600/getProduct/9d783bf4-c64e-11e9-88b6-0c54a52d7951)  
-[createProduct](http://192.168.99.100:8600/createProduct)  
+[getCredits](http://192.168.99.100:8600/getCredits)    
+[getCustomer](http://192.168.99.100:8081/getCustomer/9d783bf4-c64e-11e9-88b6-0c54a52d7951)  
+[getProduct](http://192.168.99.100:8080/getProduct/9d783bf4-c64e-11e9-88b6-0c54a52d7951)  
 ###  Command line
 Or via console:
 ```  
