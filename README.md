@@ -4,10 +4,10 @@ The goal of the task is to create application in ditributed architecture
 ## Setup
 ### First step
 Browse to microservices directory and type : ```mvn package```
-to build jar files.
+to build jar files and docker images.
 ### Last step
-Execute ```mvn install``` in credit app.  
-This step will build all necessary docker images and run it. 
+Execute ```docker-compose up``` in credit app.  
+This step will build postgres image with initial database, next run all the rest application components. 
 ## Testing
 ### Browser
 You can test app via html using this URLs:
