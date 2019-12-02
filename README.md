@@ -3,7 +3,7 @@
 The goal of the task is to create application in ditributed architecture
 ## Setup
 ### First step
-Browse to microservices directories and type : ```mvn package```
+Browse to microservices directory and type : ```mvn package```
 to build jar files.
 ### Last step
 Execute ```mvn install``` in credit app.  
