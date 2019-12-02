@@ -26,6 +26,5 @@ Or via console:
 - curl -i -X GET http://192.168.99.100:8080/getProduct/9d783bf4-c64e-11e9-88b6-0c54a52d7951
 ```
 ## TODO
-+ Make build app easier.
 + Use kubernetes.
 
