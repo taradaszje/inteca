@@ -7,7 +7,7 @@ Browse to microservices directory and type : ```mvn package```
 to build jar files and docker images.
 ### Last step
 Execute ```docker-compose up``` in the same directory. 
-This step will build postgres image with initial database, next run all the rest application components. 
+This step will build postgres image with initial database, next will run all the rest application components. 
 ## Testing
 ### Browser
 You can test app via html using this URLs:
