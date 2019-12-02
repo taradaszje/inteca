@@ -18,26 +18,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.credit.beans.CreditForm.createCreditForm;
+import static com.example.credit.beans.Customer.createCustomer;
+import static com.example.credit.beans.Product.createProduct;
+import static com.example.credit.entity.Credit.createCredit;
+
 @RestController
 public class CreditController {
 
     @Autowired
-    private ProductServiceProxy productServiceProxy;
-
-    @Autowired
-    private CustomerServiceProxy customerServiceProxy;
-
-    @Autowired
     private CreditService creditService;
-
 
     @GetMapping(value = "/getCredits", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<CreditForm> getCredits() {
         final List<CreditForm> creditForms = new ArrayList<>();
         final List<Credit> credits = creditService.getCredits();
         credits.forEach(credit -> {
-            final Product product = productServiceProxy.getProduct(credit.getCreditID());
-            final Customer customer = customerServiceProxy.getCustomer(credit.getCreditID());
+            final Product product = creditService.getProduct(credit.getCreditID());
+            final Customer customer = creditService.getCustomer(credit.getCreditID());
             final CreditForm creditForm = createCreditForm(credit, product, customer);
             creditForms.add(creditForm);
         });
@@ -47,43 +45,8 @@ public class CreditController {
     @PostMapping(value = "/createCredit", consumes = "application/json")
     public UUID saveCredit(@RequestBody final CreditForm creditForm) {
         final UUID creditID = UUID.randomUUID();
-        productServiceProxy.saveProduct(createProduct(creditForm, creditID));
-        customerServiceProxy.saveCustomer(createCustomer(creditForm,creditID));
+        creditService.saveCustomer(createCustomer(creditForm,creditID));
+        creditService.saveProduct(createProduct(creditForm, creditID));
         return creditService.saveCredit(createCredit(creditForm, creditID));
-    }
-
-    private Credit createCredit(@RequestBody CreditForm creditForm, UUID creditID) {
-        final Credit credit = new Credit();
-        credit.setName(creditForm.getCreditName());
-        credit.setCreditID(creditID);
-        return credit;
-    }
-
-    private Customer createCustomer(final CreditForm creditForm,  final UUID creditID) {
-        final Customer customer = new Customer();
-        customer.setCreditID(creditID);
-        customer.setFirstName(creditForm.getFirstName());
-        customer.setIdentityNumber(creditForm.getIdentityNumber());
-        customer.setSurname(creditForm.getLastName());
-        return customer;
-    }
-
-    private Product createProduct(final CreditForm creditForm, final UUID creditID) {
-        final Product product = new Product();
-        product.setCreditID(creditID);
-        product.setName(creditForm.getProductName());
-        product.setValue(creditForm.getProductValue());
-        return product;
-    }
-
-    private CreditForm createCreditForm(final Credit credit, final Product product, final Customer customer) {
-        final CreditForm creditForm = new CreditForm();
-        creditForm.setFirstName(customer.getFirstName());
-        creditForm.setIdentityNumber(customer.getIdentityNumber());
-        creditForm.setLastName(customer.getSurname());
-        creditForm.setCreditName(credit.getName());
-        creditForm.setProductName(product.getName());
-        creditForm.setProductValue(product.getValue());
-        return creditForm;
     }
 }

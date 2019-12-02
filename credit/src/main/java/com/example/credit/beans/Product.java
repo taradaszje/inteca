@@ -18,4 +18,12 @@ public class Product {
     private String name;
 
     private Integer value;
+
+    public static Product createProduct(final CreditForm creditForm, final UUID creditID) {
+        final Product product = new Product();
+        product.setCreditID(creditID);
+        product.setName(creditForm.getProductName());
+        product.setValue(creditForm.getProductValue());
+        return product;
+    }
 }
