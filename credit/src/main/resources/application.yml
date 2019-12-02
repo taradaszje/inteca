@@ -1,14 +1,13 @@
 server:
   port: 8600
 
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
+
   ## PostgreSQL
 spring:
   application:
     name: credit-service
+  profiles:
+    active: container
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/inteca_work
@@ -18,3 +17,7 @@ spring:
     hibernate.ddl-auto: validate
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.99.100:8761/eureka

@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.UUID;
 
 
-@FeignClient(name = "product-service")
-@RibbonClient(name = "product-service")
+@FeignClient(name = "product-service",url = "192.168.99.100:8080")
 public interface ProductServiceProxy {
 
     @GetMapping("/getProduct/{creditID}")

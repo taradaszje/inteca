@@ -1,5 +1,6 @@
 package com.example.credit.entity;
 
+import com.example.credit.beans.CreditForm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,5 +30,11 @@ public class Credit {
     @Column(name = "credit_id")
     private UUID creditID;
 
+    public static Credit createCredit(final CreditForm creditForm, final UUID creditID) {
+        final Credit credit = new Credit();
+        credit.setName(creditForm.getCreditName());
+        credit.setCreditID(creditID);
+        return credit;
+    }
 }
 
