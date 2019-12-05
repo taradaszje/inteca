@@ -1,6 +1,6 @@
 # Inteca prework
 ## Microservices
-The goal of the task is to create application in ditributed architecture
+The goal of the task is to create application in distributed architecture
 ## Setup
 ### First step
 Browse to microservices directory and type : ```mvn package```
