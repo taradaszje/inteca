@@ -1,13 +1,13 @@
 package com.taradaszje.netflixeurekanamingserver;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NetflixEurekaNamingServerApplicationTests {
+public class NetflixEurekaNamingServerApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 }
