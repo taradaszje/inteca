@@ -10,8 +10,8 @@ services:
     volumes:
       - .:/docker-entrypoint-initdb.d/
     environment:
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1100
+      - POSTGRES_USER=taradaszje
       - POSTGRES_DB=inteca_work
     restart: unless-stopped
   # EUREKA SERVER#####
@@ -23,31 +23,40 @@ services:
     ports:
       - 8761:8761
     restart: unless-stopped
-  # APP*****************************************
+  # API GATEWAY######
+  api-gateway:
+    image: api-gateway:latest
+    container_name: api-gateway
+    networks:
+      - services-network
+    ports:
+    - 8080:8080
+    restart: unless-stopped
+  # APPS*****************************************
   credit-service:
     image: credit-service:latest
     container_name: credit-service
     networks:
       - services-network
     ports:
-     - 8600:8600
+      - 8060:8060
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_DATASOURCE_USERNAME=taradaszje
+      - SPRING_DATASOURCE_PASSWORD=1100
     restart: unless-stopped
 
   product-service:
     image: product-service:latest
     networks:
-         - services-network
+      - services-network
     container_name: product-service
     ports:
-      - 8080:8080
+      - 8090:8090
     environment:
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
-        - SPRING_DATASOURCE_USERNAME=postgres
-        - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
+      - SPRING_DATASOURCE_USERNAME=taradaszje
+      - SPRING_DATASOURCE_PASSWORD=1100
     restart: unless-stopped
 
   customer-service:
@@ -56,9 +65,9 @@ services:
       - services-network
     container_name: customer-service
     ports:
-      - 8081:8081
+      - 8070:8070
     environment:
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
-        - SPRING_DATASOURCE_USERNAME=postgres
-        - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresService/inteca_work
+      - SPRING_DATASOURCE_USERNAME=taradaszje
+      - SPRING_DATASOURCE_PASSWORD=1100
     restart: unless-stopped

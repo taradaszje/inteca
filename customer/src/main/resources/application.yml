@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8070
 
 eureka:
   client:
-    service-url:
+    serviceUrl:
       defaultZone: http://192.168.99.100:8761/eureka
 
   ## PostgreSQL

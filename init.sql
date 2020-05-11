@@ -1,5 +1,4 @@
 create sequence hibernate_sequence;
-
 create table credits
 (
     id            bigint not null
